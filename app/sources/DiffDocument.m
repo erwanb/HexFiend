@@ -7,7 +7,7 @@
 
 #import "DiffDocument.h"
 #import "DiffOverlayView.h"
-#import "DataInspectorRepresenter.h"
+#import "HFDataInspectorRepresenter.h"
 #import "HFDocumentOperationView.h"
 #import "DiffTextViewContainer.h"
 #import <HexFiend/HexFiend.h>
@@ -643,7 +643,7 @@ static enum DiffOverlayViewRangeType_t rangeTypeForValue(CGFloat value) {
     
     /* Remove the representers we don't want */
     FOREACH(HFRepresenter *, rep, [[textView layoutRepresenter] representers]) {
-        if ([rep isKindOfClass:[HFVerticalScrollerRepresenter class]] || [rep isKindOfClass:[HFStringEncodingTextRepresenter class]] || [rep isKindOfClass:[HFStatusBarRepresenter class]] || [rep isKindOfClass:[DataInspectorRepresenter class]]) {
+        if ([rep isKindOfClass:[HFVerticalScrollerRepresenter class]] || [rep isKindOfClass:[HFStringEncodingTextRepresenter class]] || [rep isKindOfClass:[HFStatusBarRepresenter class]] || [rep isKindOfClass:[HFDataInspectorRepresenter class]]) {
             [[textView layoutRepresenter] removeRepresenter:rep];
             [[textView controller] removeRepresenter:rep];
         }

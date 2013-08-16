@@ -70,8 +70,6 @@
 		D039DC031482DCD000364FA6 /* com.ridiculousfish.HexFiend.PrivilegedHelper in CopyFiles */ = {isa = PBXBuildFile; fileRef = D047E3151022CEFE00EF307B /* com.ridiculousfish.HexFiend.PrivilegedHelper */; };
 		D03BD7D3146F676600881576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		D03BD7D4146F676D00881576 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
-		D03CFA820FC7857B00EE79E4 /* DataInspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03CFA810FC7857B00EE79E4 /* DataInspectorView.xib */; };
-		D03CFA8A0FC78BCD00EE79E4 /* DataInspectorRepresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CFA890FC78BCD00EE79E4 /* DataInspectorRepresenter.m */; };
 		D041D1C00D397E1A00C28345 /* HFPasteboardOwner.h in Headers */ = {isa = PBXBuildFile; fileRef = D041D1BE0D397E1A00C28345 /* HFPasteboardOwner.h */; };
 		D041D1C10D397E1A00C28345 /* HFPasteboardOwner.m in Sources */ = {isa = PBXBuildFile; fileRef = D041D1BF0D397E1A00C28345 /* HFPasteboardOwner.m */; };
 		D0422FDF0D62599300F8FCDE /* HFProgressTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D0422FDD0D62599300F8FCDE /* HFProgressTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -197,6 +195,9 @@
 		D8C1F92C16F278BA00A4C36E /* DiffRangeDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8C1F92A16F278BA00A4C36E /* DiffRangeDialog.xib */; };
 		D8EE3EFE16F26689001C7C09 /* DiffRangeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EE3EFD16F26689001C7C09 /* DiffRangeWindowController.m */; };
 		DAE8EBFE1598FFDB0008ADB9 /* DocumentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8EBFD1598FFDB0008ADB9 /* DocumentWindow.m */; };
+		F07C80DB17BE1E8E002D759E /* HFDataInspectorRepresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = F07C80D917BE1E8E002D759E /* HFDataInspectorRepresenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F07C80DC17BE1E8E002D759E /* HFDataInspectorRepresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = F07C80DA17BE1E8E002D759E /* HFDataInspectorRepresenter.m */; };
+		F07C80DE17BE1F0F002D759E /* HFDataInspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F07C80DD17BE1F0F002D759E /* HFDataInspectorView.xib */; };
 		FB1E99AA14A301CD002136A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05984CB1032C6D900059E72 /* Security.framework */; };
 /* End PBXBuildFile section */
 
@@ -344,9 +345,6 @@
 		D0370A3D0D68307A00B3A8C6 /* HFSharedMemoryByteSlice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFSharedMemoryByteSlice.h; path = sources/HFSharedMemoryByteSlice.h; sourceTree = "<group>"; };
 		D0370A3E0D68307A00B3A8C6 /* HFSharedMemoryByteSlice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HFSharedMemoryByteSlice.m; path = sources/HFSharedMemoryByteSlice.m; sourceTree = "<group>"; };
 		D039DC081483100500364FA6 /* Release+CodeSign.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release+CodeSign.xcconfig"; sourceTree = "<group>"; };
-		D03CFA810FC7857B00EE79E4 /* DataInspectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DataInspectorView.xib; path = app/resources/DataInspectorView.xib; sourceTree = "<group>"; };
-		D03CFA880FC78BCD00EE79E4 /* DataInspectorRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataInspectorRepresenter.h; path = app/sources/DataInspectorRepresenter.h; sourceTree = "<group>"; };
-		D03CFA890FC78BCD00EE79E4 /* DataInspectorRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataInspectorRepresenter.m; path = app/sources/DataInspectorRepresenter.m; sourceTree = "<group>"; };
 		D041D1BE0D397E1A00C28345 /* HFPasteboardOwner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFPasteboardOwner.h; path = sources/HFPasteboardOwner.h; sourceTree = "<group>"; };
 		D041D1BF0D397E1A00C28345 /* HFPasteboardOwner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HFPasteboardOwner.m; path = sources/HFPasteboardOwner.m; sourceTree = "<group>"; };
 		D0422FDD0D62599300F8FCDE /* HFProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFProgressTracker.h; path = sources/HFProgressTracker.h; sourceTree = "<group>"; };
@@ -492,6 +490,9 @@
 		D8EE3EFD16F26689001C7C09 /* DiffRangeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiffRangeWindowController.m; path = app/sources/DiffRangeWindowController.m; sourceTree = "<group>"; };
 		DAE8EBFC1598FFDB0008ADB9 /* DocumentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DocumentWindow.h; path = app/sources/DocumentWindow.h; sourceTree = "<group>"; };
 		DAE8EBFD1598FFDB0008ADB9 /* DocumentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DocumentWindow.m; path = app/sources/DocumentWindow.m; sourceTree = "<group>"; };
+		F07C80D917BE1E8E002D759E /* HFDataInspectorRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFDataInspectorRepresenter.h; path = sources/HFDataInspectorRepresenter.h; sourceTree = "<group>"; };
+		F07C80DA17BE1E8E002D759E /* HFDataInspectorRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HFDataInspectorRepresenter.m; path = sources/HFDataInspectorRepresenter.m; sourceTree = "<group>"; };
+		F07C80DD17BE1F0F002D759E /* HFDataInspectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HFDataInspectorView.xib; path = resources/HFDataInspectorView.xib; sourceTree = "<group>"; };
 		FBEA8E7F14A2C10B00C27288 /* fileport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fileport.h; path = helper_subprocess/fileport.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -579,7 +580,6 @@
 				D024AFB20E349A7B00F39EBB /* hex_icon.icns */,
 				D01E7C0A0CDC570400943F9E /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				D03CFA810FC7857B00EE79E4 /* DataInspectorView.xib */,
 				D0D8C2AF12A3BE4300960FC4 /* ChooseStringEncodingDialog.xib */,
 				D059E1411311CA71001493B8 /* GenericPrompt.xib */,
 				D09163C9123857BB009D7D47 /* OpenPathDialog.xib */,
@@ -663,6 +663,7 @@
 		D01E7C010CDC569F00943F9E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F07C80DD17BE1F0F002D759E /* HFDataInspectorView.xib */,
 				D04A6C15100EB02400704963 /* HFModalProgress.xib */,
 				D01772B70D72E024002E03DE /* HFCancelOn.tiff */,
 				D01772B80D72E024002E03DE /* HFCancelOff.tiff */,
@@ -683,6 +684,8 @@
 				D0A9F3F00CFBEA9F0077D577 /* HFLineCountingRepresenter.m */,
 				D0A9F3FB0CFBEAD50077D577 /* HFLineCountingView.h */,
 				D0A9F3FC0CFBEAD50077D577 /* HFLineCountingView.m */,
+				F07C80D917BE1E8E002D759E /* HFDataInspectorRepresenter.h */,
+				F07C80DA17BE1E8E002D759E /* HFDataInspectorRepresenter.m */,
 				D01E7C330CDC646800943F9E /* HFRepresenter.h */,
 				D0A4360B0CDC7B65000F7550 /* HFRepresenter_Internal.h */,
 				D01E7C340CDC646800943F9E /* HFRepresenter.m */,
@@ -846,8 +849,6 @@
 				D059E1281311C676001493B8 /* AppDebugging.m */,
 				D0D8C45612A3EF3900960FC4 /* ProcessList.h */,
 				D0D8C45712A3EF3900960FC4 /* ProcessList.m */,
-				D03CFA880FC78BCD00EE79E4 /* DataInspectorRepresenter.h */,
-				D03CFA890FC78BCD00EE79E4 /* DataInspectorRepresenter.m */,
 				D01772F30D751DB1002E03DE /* HFDocumentOperationView.h */,
 				D01772F40D751DB1002E03DE /* HFDocumentOperationView.m */,
 				D01773900D7A2F32002E03DE /* HFResizingView.h */,
@@ -1040,6 +1041,7 @@
 				D0A435730CDC71DF000F7550 /* HFRepresenter.h in Headers */,
 				D0A4373A0CDD4EDD000F7550 /* HFTextRepresenter.h in Headers */,
 				D026C7B00CDD50ED0082279E /* HFRepresenterTextView.h in Headers */,
+				F07C80DB17BE1E8E002D759E /* HFDataInspectorRepresenter.h in Headers */,
 				D026C7BB0CDD546C0082279E /* HFRepresenterHexTextView.h in Headers */,
 				D026C7C00CDD54D00082279E /* HFHexTextRepresenter.h in Headers */,
 				D082AC910CDEBD5300554EB7 /* HFByteArray_Internal.h in Headers */,
@@ -1224,7 +1226,6 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				D024AFB30E349A7B00F39EBB /* hex_icon.icns in Resources */,
-				D03CFA820FC7857B00EE79E4 /* DataInspectorView.xib in Resources */,
 				D04A6B6B100EA47C00704963 /* SaveBanner.xib in Resources */,
 				D04A6B7A100EA4BC00704963 /* FindReplaceBanner.xib in Resources */,
 				D04A6B97100EA73800704963 /* JumpToOffsetBanner.xib in Resources */,
@@ -1257,6 +1258,7 @@
 				D05B77BA0E00856D008C45EB /* HFCancelOn.tiff in Resources */,
 				D05B77BB0E00856D008C45EB /* HFCancelOff.tiff in Resources */,
 				D04A6C16100EB02400704963 /* HFModalProgress.xib in Resources */,
+				F07C80DE17BE1F0F002D759E /* HFDataInspectorView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1318,7 +1320,6 @@
 				D01772F50D751DB1002E03DE /* HFDocumentOperationView.m in Sources */,
 				D01773920D7A2F32002E03DE /* HFResizingView.m in Sources */,
 				D0CD51F60DA2B928006E8D1B /* AppDelegate.m in Sources */,
-				D03CFA8A0FC78BCD00EE79E4 /* DataInspectorRepresenter.m in Sources */,
 				D02BD6CC10545E5600535EDE /* ProcessMemoryDocument.m in Sources */,
 				D02BD6E010545E9000535EDE /* FileDataDocument.m in Sources */,
 				D018F153107ABAC600AE805F /* DiffDocument.m in Sources */,
@@ -1371,6 +1372,7 @@
 				D08399AF0CF85A540030DBF0 /* HFTextRepresenter_KeyBinding.m in Sources */,
 				D0A9F3F20CFBEA9F0077D577 /* HFLineCountingRepresenter.m in Sources */,
 				D0A9F3FE0CFBEAD50077D577 /* HFLineCountingView.m in Sources */,
+				F07C80DC17BE1E8E002D759E /* HFDataInspectorRepresenter.m in Sources */,
 				D0A402F40D0D43F4006BC574 /* HFLayoutRepresenter.m in Sources */,
 				D0A90B060D160414008975B9 /* HFStatusBarRepresenter.m in Sources */,
 				D0A47C120D288EDF00CB9BB9 /* HFControllerCoalescedUndo.m in Sources */,

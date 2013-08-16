@@ -8,7 +8,7 @@
 #import "BaseDataDocument.h"
 #import "HFBannerDividerThumb.h"
 #import "HFDocumentOperationView.h"
-#import "DataInspectorRepresenter.h"
+#import "HFDataInspectorRepresenter.h"
 #import "TextDividerRepresenter.h"
 #import "AppDebugging.h"
 #import "AppUtilities.h"
@@ -471,14 +471,14 @@ static inline Class preferredByteArrayClass(void) {
 }
 
 - (void)dataInspectorDeletedAllRows:(NSNotification *)note {
-    DataInspectorRepresenter *inspector = [note object];
+    HFDataInspectorRepresenter *inspector = [note object];
     [self hideViewForRepresenter:inspector];
     [self saveDefaultRepresentersToDisplay]; // Save the representers in UserDefaults so we start out next time the same way
 }
 
 /* Called when our data inspector changes its size (number of rows) */
 - (void)dataInspectorChangedRowCount:(NSNotification *)note {
-    DataInspectorRepresenter *inspector = [note object];
+    HFDataInspectorRepresenter *inspector = [note object];
     CGFloat newHeight = (CGFloat)[[[note userInfo] objectForKey:@"height"] doubleValue];
     NSView *dataInspectorView = [inspector view];
     NSSize size = [dataInspectorView frame].size;
@@ -499,7 +499,7 @@ static inline Class preferredByteArrayClass(void) {
     scrollRepresenter = [[HFVerticalScrollerRepresenter alloc] init];
     layoutRepresenter = [[HFLayoutRepresenter alloc] init];
     statusBarRepresenter = [[HFStatusBarRepresenter alloc] init];
-    dataInspectorRepresenter = [[DataInspectorRepresenter alloc] init];
+    dataInspectorRepresenter = [[HFDataInspectorRepresenter alloc] init];
     textDividerRepresenter = [[TextDividerRepresenter alloc] init];
     
     [(NSView *)[hexRepresenter view] setAutoresizingMask:NSViewHeightSizable];
@@ -508,7 +508,7 @@ static inline Class preferredByteArrayClass(void) {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(lineCountingViewChangedWidth:) name:HFLineCountingRepresenterMinimumViewWidthChanged object:lineCountingRepresenter];
     [center addObserver:self selector:@selector(dataInspectorChangedRowCount:) name:DataInspectorDidChangeRowCount object:dataInspectorRepresenter];
-    [center addObserver:self selector:@selector(dataInspectorDeletedAllRows:) name:DataInspectorDidDeleteAllRows object:dataInspectorRepresenter];
+    [center addObserver:self selector:@selector(dataInspectorDeletedAllRows:) name:HFDataInspectorDidDeleteAllRows object:dataInspectorRepresenter];
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     
     controller = [[HFController alloc] init];

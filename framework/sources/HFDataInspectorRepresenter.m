@@ -6,7 +6,7 @@
 //  Copyright 2009 ridiculous_fish. All rights reserved.
 //
 
-#import "DataInspectorRepresenter.h"
+#import <HexFiend/HFDataInspectorRepresenter.h>
 
 /* NSTableColumn identifiers */
 #define kInspectorTypeColumnIdentifier @"inspector_type"
@@ -24,14 +24,14 @@
 #define MAX_EDITABLE_BYTE_COUNT 128
 #define INVALID_EDITING_BYTE_COUNT NSUIntegerMax
 
-#define kDataInspectorUserDefaultsKey @"DataInspectorDefaults"
+#define kDataInspectorUserDefaultsKey @"HFDataInspectorDefaults"
 
 static BOOL isRunningOnLeopardOrLater(void) {
     return NSAppKitVersionNumber >= 860.;
 }
 
-NSString * const DataInspectorDidChangeRowCount = @"DataInspectorDidChangeRowCount";
-NSString * const DataInspectorDidDeleteAllRows = @"DataInspectorDidDeleteAllRows";
+NSString * const HFDataInspectorDidChangeRowCount = @"HFDataInspectorDidChangeRowCount";
+NSString * const HFDataInspectorDidDeleteAllRows = @"HFDataInspectorDidDeleteAllRows";
 
 /* Inspector types */
 enum InspectorType_t {
@@ -566,7 +566,7 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
 
 @end
 
-@implementation DataInspectorScrollView
+@implementation HFDataInspectorScrollView
 
 - (void)drawDividerWithClip:(NSRect)clipRect {
     [[NSColor lightGrayColor] set];
@@ -584,7 +584,7 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
 
 @end
 
-@implementation DataInspectorRepresenter
+@implementation HFDataInspectorRepresenter
 
 - (id)init {
     self = [super init];
@@ -642,9 +642,9 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
 }
 
 - (NSView *)createView {
-    BOOL loaded = [NSBundle loadNibNamed:@"DataInspectorView" owner:self];
+    BOOL loaded = [NSBundle loadNibNamed:@"HFDataInspectorView" owner:self];
     if (! loaded || ! outletView) {
-        [NSException raise:NSInternalInconsistencyException format:@"Unable to load nib named DataInspectorView"];
+        [NSException raise:NSInternalInconsistencyException format:@"Unable to load nib named HFDataInspectorView"];
     }
     NSView *resultView = outletView; //want to inherit its retain here
     outletView = nil;
@@ -761,7 +761,7 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
                                                             hasHorizontalScroller:[scrollView hasHorizontalScroller]
                                                               hasVerticalScroller:[scrollView hasVerticalScroller]
                                                                        borderType:[scrollView borderType]].height + kScrollViewExtraPadding;
-        [[NSNotificationCenter defaultCenter] postNotificationName:DataInspectorDidChangeRowCount object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithDouble:newScrollViewHeight] forKey:@"height"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:HFDataInspectorDidChangeRowCount object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithDouble:newScrollViewHeight] forKey:@"height"]];
     }
 }
 
@@ -786,7 +786,7 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
 - (void)removeRow:(id)sender {
     USE(sender);
     if ([self rowCount] == 1) {
-	[[NSNotificationCenter defaultCenter] postNotificationName:DataInspectorDidDeleteAllRows object:self userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:HFDataInspectorDidDeleteAllRows object:self userInfo:nil];
     }
     else {
 	NSInteger clickedRow = [table clickedRow];
@@ -855,7 +855,7 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
 
 @end
 
-@implementation DataInspectorPlusMinusButtonCell
+@implementation HFDataInspectorPlusMinusButtonCell
 
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
@@ -929,7 +929,7 @@ static BOOL stringRangeIsNullBytes(NSString *string, NSRange range) {
 
 @end
 
-@implementation DataInspectorTableView
+@implementation HFDataInspectorTableView
 
 - (void)highlightSelectionInClipRect:(NSRect)clipRect {
     USE(clipRect);

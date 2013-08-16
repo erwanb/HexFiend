@@ -29,6 +29,7 @@
 #import <HexFiend/HFHexTextRepresenter.h>
 #import <HexFiend/HFLineCountingRepresenter.h>
 #import <HexFiend/HFStatusBarRepresenter.h>
+#import <HexFiend/HFDataInspectorRepresenter.h>
 #import <HexFiend/HFLayoutRepresenter.h>
 #import <HexFiend/HFStringEncodingTextRepresenter.h>
 #import <HexFiend/HFVerticalScrollerRepresenter.h>
