@@ -11,7 +11,6 @@
 #import "HFDataInspectorRepresenter.h"
 #import "TextDividerRepresenter.h"
 #import "AppDebugging.h"
-#import "AppUtilities.h"
 #import <HexFiend/HexFiend.h>
 #include <pthread.h>
 #include <objc/runtime.h>

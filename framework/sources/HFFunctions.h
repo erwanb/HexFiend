@@ -430,6 +430,9 @@ void HFUnregisterViewForWindowAppearanceChanges(NSView *view, BOOL appToo);
 /*! Returns a description of the given byte count (e.g. "24 kilobytes") */
 NSString *HFDescribeByteCount(unsigned long long count);
 
+/* Parses an NSString into a quantity and a sign. The string may contain a suffix (e.g. KB). Returns YES if successful, NO if not. */
+BOOL parseNumericStringWithSuffix(NSString *string, unsigned long long *resultValue, unsigned int *signBit);
+
 /*! @brief An object wrapper for the HFRange type.
 
   A simple class responsible for holding an immutable HFRange as an object.  Methods that logically work on multiple HFRanges usually take or return arrays of HFRangeWrappers. */
