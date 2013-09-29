@@ -21,12 +21,14 @@
     int fileDescriptor;
     dev_t device;
     unsigned long long inode;
-    unsigned long long fileLength;
+    NSNumber *fileLength;
     mode_t fileMode;
     BOOL isWritable;
     uint32_t blockSize;
     BOOL isPrivileged;
     BOOL isFixedLength;
+    dispatch_queue_t monitoringQueue;
+    dispatch_source_t monitoringSource;
 }
 
 @property (readonly) BOOL isPrivileged;

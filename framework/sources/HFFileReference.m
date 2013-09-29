@@ -119,7 +119,7 @@ static BOOL returnFTruncateError(NSError **error) {
 - (BOOL)setLength:(unsigned long long)length error:(NSError **)error { USE(length); USE(error); UNIMPLEMENTED(); }
 
 - (unsigned long long)length {
-    return fileLength;
+    return [fileLength unsignedLongLongValue];
 }
 
 /* Must be overridden - do not call super */
@@ -193,6 +193,12 @@ static BOOL returnFTruncateError(NSError **error) {
 
 @implementation HFConcreteFileReference
 
+- (unsigned long long)length {
+    @synchronized(fileLength) {
+        return [fileLength unsignedLongLongValue];
+    }
+}
+
 - (BOOL)initSharedWithPath:(NSString *)path error:(NSError **)error {
     int result;
     REQUIRE_NOT_NULL(path);
@@ -244,11 +250,33 @@ static BOOL returnFTruncateError(NSError **error) {
             return NO;
         }
         
-        fileLength = blockSize * blockCount;
+        fileLength = [NSNumber numberWithUnsignedLongLong:(blockSize * blockCount)];
         isFixedLength = YES;
     }
     else {
-        fileLength = sb.st_size;
+        fileLength = [NSNumber numberWithLongLong:sb.st_size];
+        
+        monitoringQueue = dispatch_queue_create("HFFileReference Queue", 0);
+        monitoringSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fileDescriptor, DISPATCH_VNODE_WRITE, monitoringQueue);
+        dispatch_source_set_event_handler(monitoringSource, ^ {
+            @synchronized(fileLength) {
+                int result;
+#if USE_STAT64
+                struct stat64 sb;
+                result = fstat64(fileDescriptor, &sb);
+#else
+                struct stat sb;
+                result = fstat(fileDescriptor, &sb);
+#endif
+                if (result != 0) {
+                    int err = errno;
+                    NSLog(@"Unable to fstat64 file. %s.", strerror(err));
+                }
+                
+                fileLength = [NSNumber numberWithLongLong:sb.st_size];
+            }
+        });
+        dispatch_resume(monitoringSource);
     }
 
     fileMode = sb.st_mode;
@@ -262,8 +290,8 @@ static BOOL returnFTruncateError(NSError **error) {
     if (! length) return;
     REQUIRE_NOT_NULL(buff);
     HFASSERT(length <= LONG_MAX);
-    HFASSERT(pos <= fileLength);
-    HFASSERT(length <= fileLength - pos);
+    HFASSERT(pos <= self.length);
+    HFASSERT(length <= self.length - pos);
     if (fileDescriptor < 0) [NSException raise:NSInvalidArgumentException format:@"File has already been closed."];
 
 	NSUInteger lastBlockLen = 0;
@@ -314,7 +342,7 @@ static BOOL returnFTruncateError(NSError **error) {
     HFASSERT(fileDescriptor >= 0);
     if (! length) return 0;
     REQUIRE_NOT_NULL(buff);
-    HFASSERT(offset <= fileLength);
+    HFASSERT(offset <= self.length);
     HFASSERT(length <= LONG_MAX);
     HFASSERT(offset <= LLONG_MAX);
 
@@ -382,6 +410,19 @@ static BOOL returnFTruncateError(NSError **error) {
 
 - (void)close {
     if (fileDescriptor >= 0) {
+        if (monitoringQueue != nil) {
+            dispatch_source_cancel(monitoringSource);
+            
+#if !OS_OBJECT_USE_OBJC
+            dispatch_release(monitoringSource);
+#endif
+            
+            monitoringSource = nil;
+            
+#if OS_OBJECT_USE_OBJC
+            dispatch_release(monitoringQueue);
+#endif
+        }
         close(fileDescriptor);
         fileDescriptor = -1;
     }
@@ -400,7 +441,7 @@ static BOOL returnFTruncateError(NSError **error) {
         returnFTruncateError(error);
     }
     else {
-        fileLength = length;
+        fileLength = [NSNumber numberWithUnsignedLongLong:length];
     }
     return result == 0;
 }
