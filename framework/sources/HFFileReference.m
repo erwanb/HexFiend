@@ -412,16 +412,9 @@ static BOOL returnFTruncateError(NSError **error) {
     if (fileDescriptor >= 0) {
         if (monitoringQueue != nil) {
             dispatch_source_cancel(monitoringSource);
-            
-#if !OS_OBJECT_USE_OBJC
             dispatch_release(monitoringSource);
-#endif
-            
             monitoringSource = nil;
-            
-#if OS_OBJECT_USE_OBJC
             dispatch_release(monitoringQueue);
-#endif
         }
         close(fileDescriptor);
         fileDescriptor = -1;
