@@ -100,6 +100,7 @@ You create an HFController via <tt>[[HFController alloc] init]</tt>.  After that
 
 */
 @interface HFController : NSObject <NSCoding> {
+    NSMutableDictionary *bookmarkColors;
 @private
     NSMutableArray *representers;
     HFByteArray *byteArray;
@@ -415,6 +416,10 @@ You create an HFController via <tt>[[HFController alloc] init]</tt>.  After that
 
 /*! Sets the range for the given bookmark.  Pass {ULLONG_MAX, ULLONG_MAX} to remove the bookmark. Undoable. */
 - (void)setRange:(HFRange)range forBookmark:(NSInteger)bookmark;
+
+- (void)setRange:(HFRange)range forBookmark:(NSInteger)bookmark withColor:(NSColor *)color;
+
+- (NSColor *)colorForBookmark:(NSUInteger)bookmark;
 
 /*! Returns an NSIndexSet of the bookmarks in the given range. */
 - (NSIndexSet *)bookmarksInRange:(HFRange)range;

@@ -170,6 +170,7 @@
     FOREACH(NSString *, attribute, attributes) {
         NSInteger bookmark = HFBookmarkFromBookmarkAttribute(attribute);
         if (bookmark != NSNotFound) {
+            [run setBackgroundColor:[self.controller colorForBookmark:bookmark]];
             if (! bookmarkExtents) bookmarkExtents = [[NSMutableIndexSet alloc] init];
             [bookmarkExtents addIndex:bookmark];
         }

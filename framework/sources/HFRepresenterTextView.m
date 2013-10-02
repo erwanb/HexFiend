@@ -1019,139 +1019,139 @@ static size_t unionAndCleanLists(NSRect *rectList, id *valueList, size_t count) 
     UNIMPLEMENTED();
 }
 
-- (NSColor *)colorForBookmark:(NSUInteger)bookmark withAlpha:(CGFloat)alpha {
-    // OMG this is so clever I'm going to die.  Reverse our bits and use that as a hue lookup into the color wheel.
-    NSUInteger v = bookmark - 1; //because bookmarks are indexed from 1
-    NSUInteger reverse = v;
-    unsigned int s = (CHAR_BIT * sizeof v) - 1;
-    for (v >>= 1; v; v >>= 1) {
-        reverse <<= 1;
-        reverse |= (v & 1);
-        s--;
-    }
-    reverse <<= s; // shift when v's highest bits are zero
-    
-    double hue = reverse / (1. + NSUIntegerMax);
-    return [NSColor colorWithCalibratedHue:hue saturation:1. brightness:.6 alpha:alpha];
-}
+//- (NSColor *)colorForBookmark:(NSUInteger)bookmark withAlpha:(CGFloat)alpha {
+//    // OMG this is so clever I'm going to die.  Reverse our bits and use that as a hue lookup into the color wheel.
+//    NSUInteger v = bookmark - 1; //because bookmarks are indexed from 1
+//    NSUInteger reverse = v;
+//    unsigned int s = (CHAR_BIT * sizeof v) - 1;
+//    for (v >>= 1; v; v >>= 1) {
+//        reverse <<= 1;
+//        reverse |= (v & 1);
+//        s--;
+//    }
+//    reverse <<= s; // shift when v's highest bits are zero
+//    
+//    double hue = reverse / (1. + NSUIntegerMax);
+//    return [NSColor colorWithCalibratedHue:hue saturation:1. brightness:.6 alpha:alpha];
+//}
 
-- (NSColor *)colorForBookmark:(NSUInteger)bookmark {
-    return [self colorForBookmark:bookmark withAlpha:(CGFloat).88];
-}
+//- (NSColor *)colorForBookmark:(NSUInteger)bookmark {
+//    return [self colorForBookmark:bookmark withAlpha:(CGFloat).88];
+//}
 
-- (void)drawBookmark:(NSUInteger)bookmark inRect:(NSRect)rect {
-    [NSGraphicsContext saveGraphicsState];
-    NSColor *color = [self colorForBookmark:bookmark withAlpha:1.];
-    if (color) {
-        [[color colorWithAlphaComponent:(CGFloat).66] set];
-        
-        NSBezierPath *path = [[NSBezierPath alloc] init];
-        [path appendBezierPathWithOvalInRect:NSMakeRect(rect.origin.x, rect.origin.y, 6, 6)];
-        [path appendBezierPathWithRect:NSMakeRect(rect.origin.x, rect.origin.y, 2, defaultLineHeight)];
-        [path fill];
-        [path release];
-        NSRectFill(NSMakeRect(rect.origin.x, NSMaxY(rect) - 1, rect.size.width, (CGFloat).75));
-    }
-    [NSGraphicsContext restoreGraphicsState];
-}
+//- (void)drawBookmark:(NSUInteger)bookmark inRect:(NSRect)rect {
+//    [NSGraphicsContext saveGraphicsState];
+//    NSColor *color = [self colorForBookmark:bookmark withAlpha:1.];
+//    if (color) {
+//        [[color colorWithAlphaComponent:(CGFloat).66] set];
+//        
+//        NSBezierPath *path = [[NSBezierPath alloc] init];
+//        [path appendBezierPathWithOvalInRect:NSMakeRect(rect.origin.x, rect.origin.y, 6, 6)];
+//        [path appendBezierPathWithRect:NSMakeRect(rect.origin.x, rect.origin.y, 2, defaultLineHeight)];
+//        [path fill];
+//        [path release];
+//        NSRectFill(NSMakeRect(rect.origin.x, NSMaxY(rect) - 1, rect.size.width, (CGFloat).75));
+//    }
+//    [NSGraphicsContext restoreGraphicsState];
+//}
 
-- (void)drawBookmarkStarts:(NSIndexSet *)bookmarkStarts inRect:(NSRect)rect {
-    NSUInteger i = 0;
-    NSUInteger idx;
-    NSRect ovalRect = NSMakeRect(rect.origin.x, rect.origin.y, 6, 6);
-    NSGraphicsContext *context = [NSGraphicsContext currentContext];
-    for (idx = [bookmarkStarts firstIndex]; idx != NSNotFound; idx = [bookmarkStarts indexGreaterThanIndex:idx]) {
-        NSBezierPath *path = [[NSBezierPath alloc] init];
-        //[path appendBezierPathWithOvalInRect:ovalRect];
-        if (i == 0) [path appendBezierPathWithRect:NSMakeRect(rect.origin.x, rect.origin.y, 2, defaultLineHeight)];
-        [[self colorForBookmark:idx] set];
-        BOOL needsClip = ! NSContainsRect(rect, ovalRect);
-        if (needsClip) {
-            [context saveGraphicsState];
-            [NSBezierPath clipRect:rect];
-        }
-        [path fill];
-        if (needsClip) {
-            [context restoreGraphicsState];
-        }
-        [path release];
-        
-        i++;
-        ovalRect.origin.y += ovalRect.size.height;
-        if (ovalRect.origin.y > NSMaxY(rect)) break;
-    }
-}
-
-- (void)drawBookmarkExtents:(NSIndexSet *)bookmarkExtents inRect:(NSRect)rect {
-    NSUInteger idx = 0, numBookmarks = [bookmarkExtents count];
-    const CGFloat lineThickness = 1.5;
-    [NSBezierPath setDefaultLineWidth:lineThickness];
-    
-    CGFloat stripeLength;
-    switch (numBookmarks) {
-        case 0:
-        case 1:
-            stripeLength = NSWidth(rect);
-            break;
-        case 2:
-            stripeLength = 16;
-            break;
-        case 3:
-            stripeLength = 10;
-            break;
-        case 4:
-        default:
-            stripeLength = 6;
-            break;
-    }
-    
-    CGFloat initialStripeOffset = rect.origin.x;
-    CGFloat stripeSpace = stripeLength * numBookmarks;
-    for (NSUInteger bookmark = [bookmarkExtents firstIndex]; bookmark != NSNotFound; bookmark = [bookmarkExtents indexGreaterThanIndex:bookmark]) {
-        [[self colorForBookmark:bookmark] set];
-        
-        NSRect stripeRect = NSMakeRect(initialStripeOffset, NSMinY(rect), stripeLength, [self lineHeight]);
-        CGFloat remainingWidthInRect = NSMaxX(rect) - initialStripeOffset;
-        while (remainingWidthInRect > 0) {
-            // don't draw beyond the end of the rect
-            stripeRect.size.width = fmin(remainingWidthInRect, stripeRect.size.width);
-            
-            NSRectFill(stripeRect);
-            stripeRect.origin.x += stripeSpace;
-            remainingWidthInRect -= stripeSpace;
-        }
-        
-        // start the next stripe offset from the first
-        initialStripeOffset += stripeLength;
-    }
-}
-
-- (void)drawBookmarkEnds:(NSIndexSet *)bookmarkEnds inRect:(NSRect)rect {
-    NSUInteger i = 0;
-    NSUInteger idx;
-    NSRect ovalRect = NSMakeRect(NSMaxX(rect) - 6, rect.origin.y, 6, 6);
-    NSGraphicsContext *context = [NSGraphicsContext currentContext];
-    for (idx = [bookmarkEnds firstIndex]; idx != NSNotFound; idx = [bookmarkEnds indexGreaterThanIndex:idx]) {
-        NSBezierPath *path = [[NSBezierPath alloc] init];
-        [path appendBezierPathWithOvalInRect:ovalRect];
-        if (i == 0) [path appendBezierPathWithRect:NSMakeRect(NSMaxX(rect) - 2, rect.origin.y, 2, defaultLineHeight)];
-        [[self colorForBookmark:idx] set];
-        BOOL needsClip = ! NSContainsRect(rect, ovalRect);
-        if (needsClip) {
-            [context saveGraphicsState];
-            [NSBezierPath clipRect:rect];
-        }
-        [path fill];
-        if (needsClip) {
-            [context restoreGraphicsState];
-        }
-        [path release];
-        
-        i++;
-        ovalRect.origin.y += ovalRect.size.height;
-        if (ovalRect.origin.y > NSMaxY(rect)) break;
-    }
-}
+//- (void)drawBookmarkStarts:(NSIndexSet *)bookmarkStarts inRect:(NSRect)rect {
+//    NSUInteger i = 0;
+//    NSUInteger idx;
+//    NSRect ovalRect = NSMakeRect(rect.origin.x, rect.origin.y, 6, 6);
+//    NSGraphicsContext *context = [NSGraphicsContext currentContext];
+//    for (idx = [bookmarkStarts firstIndex]; idx != NSNotFound; idx = [bookmarkStarts indexGreaterThanIndex:idx]) {
+//        NSBezierPath *path = [[NSBezierPath alloc] init];
+//        //[path appendBezierPathWithOvalInRect:ovalRect];
+//        if (i == 0) [path appendBezierPathWithRect:NSMakeRect(rect.origin.x, rect.origin.y, 2, defaultLineHeight)];
+//        [[self colorForBookmark:idx] set];
+//        BOOL needsClip = ! NSContainsRect(rect, ovalRect);
+//        if (needsClip) {
+//            [context saveGraphicsState];
+//            [NSBezierPath clipRect:rect];
+//        }
+//        [path fill];
+//        if (needsClip) {
+//            [context restoreGraphicsState];
+//        }
+//        [path release];
+//        
+//        i++;
+//        ovalRect.origin.y += ovalRect.size.height;
+//        if (ovalRect.origin.y > NSMaxY(rect)) break;
+//    }
+//}
+//
+//- (void)drawBookmarkExtents:(NSIndexSet *)bookmarkExtents inRect:(NSRect)rect {
+//    NSUInteger idx = 0, numBookmarks = [bookmarkExtents count];
+//    const CGFloat lineThickness = 1.5;
+//    [NSBezierPath setDefaultLineWidth:lineThickness];
+//    
+//    CGFloat stripeLength;
+//    switch (numBookmarks) {
+//        case 0:
+//        case 1:
+//            stripeLength = NSWidth(rect);
+//            break;
+//        case 2:
+//            stripeLength = 16;
+//            break;
+//        case 3:
+//            stripeLength = 10;
+//            break;
+//        case 4:
+//        default:
+//            stripeLength = 6;
+//            break;
+//    }
+//    
+//    CGFloat initialStripeOffset = rect.origin.x;
+//    CGFloat stripeSpace = stripeLength * numBookmarks;
+//    for (NSUInteger bookmark = [bookmarkExtents firstIndex]; bookmark != NSNotFound; bookmark = [bookmarkExtents indexGreaterThanIndex:bookmark]) {
+//        [[self colorForBookmark:bookmark] set];
+//        
+//        NSRect stripeRect = NSMakeRect(initialStripeOffset, NSMinY(rect), stripeLength, [self lineHeight]);
+//        CGFloat remainingWidthInRect = NSMaxX(rect) - initialStripeOffset;
+//        while (remainingWidthInRect > 0) {
+//            // don't draw beyond the end of the rect
+//            stripeRect.size.width = fmin(remainingWidthInRect, stripeRect.size.width);
+//            
+//            NSRectFill(stripeRect);
+//            stripeRect.origin.x += stripeSpace;
+//            remainingWidthInRect -= stripeSpace;
+//        }
+//        
+//        // start the next stripe offset from the first
+//        initialStripeOffset += stripeLength;
+//    }
+//}
+//
+//- (void)drawBookmarkEnds:(NSIndexSet *)bookmarkEnds inRect:(NSRect)rect {
+//    NSUInteger i = 0;
+//    NSUInteger idx;
+//    NSRect ovalRect = NSMakeRect(NSMaxX(rect) - 6, rect.origin.y, 6, 6);
+//    NSGraphicsContext *context = [NSGraphicsContext currentContext];
+//    for (idx = [bookmarkEnds firstIndex]; idx != NSNotFound; idx = [bookmarkEnds indexGreaterThanIndex:idx]) {
+//        NSBezierPath *path = [[NSBezierPath alloc] init];
+//        [path appendBezierPathWithOvalInRect:ovalRect];
+//        if (i == 0) [path appendBezierPathWithRect:NSMakeRect(NSMaxX(rect) - 2, rect.origin.y, 2, defaultLineHeight)];
+//        [[self colorForBookmark:idx] set];
+//        BOOL needsClip = ! NSContainsRect(rect, ovalRect);
+//        if (needsClip) {
+//            [context saveGraphicsState];
+//            [NSBezierPath clipRect:rect];
+//        }
+//        [path fill];
+//        if (needsClip) {
+//            [context restoreGraphicsState];
+//        }
+//        [path release];
+//        
+//        i++;
+//        ovalRect.origin.y += ovalRect.size.height;
+//        if (ovalRect.origin.y > NSMaxY(rect)) break;
+//    }
+//}
 
 - (void)drawStyledBackgroundsForByteRange:(NSRange)range inRect:(NSRect)rect {
     NSRect remainingRunRect = rect;
@@ -1244,16 +1244,16 @@ static size_t unionAndCleanLists(NSRect *rectList, id *valueList, size_t count) 
     const struct PropertyInfo_t *p;
     
     /* Draw backgrounds */
-//    p = propertyInfos + 0;
-//    if (p->count > 0) NSRectFillListWithColorsUsingOperation(p->rectList, p->propertyValueList, p->count, NSCompositeSourceOver);
+    p = propertyInfos + 0;
+    if (p->count > 0) NSRectFillListWithColorsUsingOperation(p->rectList, p->propertyValueList, p->count, NSCompositeSourceOver);
     
     /* Draw bookmark starts, extents, and ends */
 //    p = propertyInfos + 1;
 //    for (i=0; i < p->count; i++) [self drawBookmarkStarts:p->propertyValueList[i] inRect:p->rectList[i]];
     
-    p = propertyInfos + 2;
-    for (i=0; i < p->count; i++) [self drawBookmarkExtents:p->propertyValueList[i] inRect:p->rectList[i]];
-    
+//    p = propertyInfos + 2;
+//    for (i=0; i < p->count; i++) [self drawBookmarkExtents:p->propertyValueList[i] inRect:p->rectList[i]];
+//    
 //    p = propertyInfos + 3;
 //    for (i=0; i < p->count; i++) [self drawBookmarkEnds:p->propertyValueList[i] inRect:p->rectList[i]];
     
@@ -1501,7 +1501,7 @@ static size_t unionAndCleanLists(NSRect *rectList, id *valueList, size_t count) 
         if (! callout) {
             NSUInteger bookmark = [newKey unsignedIntegerValue];
             callout = [[HFRepresenterTextViewCallout alloc] init];
-            [callout setColor:[self colorForBookmark:bookmark]];
+//            [callout setColor:[self colorForBookmark:bookmark]];
             [callout setLabel:[NSString stringWithFormat:@"%lu", (unsigned long)[newKey unsignedIntegerValue]]];
             [callout setRepresentedObject:newKey];
             [callouts setObject:callout forKey:newKey];

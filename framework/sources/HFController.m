@@ -100,6 +100,7 @@ static inline Class preferredByteArrayClass(void) {
     _hfflags.selectable = YES;
     representers = [[NSMutableArray alloc] init];
     [self setFont:[NSFont fontWithName:@"Monaco" size:10.f]];
+    bookmarkColors = [[NSMutableDictionary alloc] init];
     return self;
 }
 
@@ -117,6 +118,7 @@ static inline Class preferredByteArrayClass(void) {
     [byteArray release];
     [cachedData release];
     [additionalPendingTransactions release];
+    [bookmarkColors release];
     [super dealloc];
 }
 
@@ -514,7 +516,29 @@ static inline Class preferredByteArrayClass(void) {
     return result;
 }
 
+- (NSColor *)colorForBookmark:(NSUInteger)bookmark {
+    return [bookmarkColors objectForKey:[NSNumber numberWithInteger:bookmark]];
+}
+
 - (void)setRange:(HFRange)range forBookmark:(NSInteger)bookmark {
+    // OMG this is so clever I'm going to die.  Reverse our bits and use that as a hue lookup into the color wheel.
+    NSUInteger v = bookmark - 1; //because bookmarks are indexed from 1
+    NSUInteger reverse = v;
+    unsigned int s = (CHAR_BIT * sizeof v) - 1;
+    for (v >>= 1; v; v >>= 1) {
+        reverse <<= 1;
+        reverse |= (v & 1);
+        s--;
+    }
+    reverse <<= s; // shift when v's highest bits are zero
+    
+    double hue = reverse / (1. + NSUIntegerMax);
+    NSColor *color = [NSColor colorWithCalibratedHue:hue saturation:1. brightness:.6 alpha:1.0];
+    
+    [self setRange:range forBookmark:bookmark withColor:color];
+}
+
+- (void)setRange:(HFRange)range forBookmark:(NSInteger)bookmark withColor:(NSColor *)color {
     HFASSERT(range.length > 0);
     HFByteRangeAttributeArray *attributeArray = [byteArray byteRangeAttributeArray];
     if (attributeArray) {
@@ -528,6 +552,7 @@ static inline Class preferredByteArrayClass(void) {
         NSString *attribute = HFBookmarkAttributeFromBookmark(bookmark);
         [attributeArray removeAttribute:attribute];
         if (! (range.location == ULLONG_MAX && range.location == ULLONG_MAX)) {
+            [bookmarkColors setObject:color forKey:[NSNumber numberWithInteger:bookmark]];
             [attributeArray addAttribute:attribute range:range];
         }
         [self _addPropertyChangeBits:HFControllerByteRangeAttributes | HFControllerBookmarks];
