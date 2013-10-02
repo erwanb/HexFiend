@@ -1110,7 +1110,7 @@ static size_t unionAndCleanLists(NSRect *rectList, id *valueList, size_t count) 
     for (NSUInteger bookmark = [bookmarkExtents firstIndex]; bookmark != NSNotFound; bookmark = [bookmarkExtents indexGreaterThanIndex:bookmark]) {
         [[self colorForBookmark:bookmark] set];
         
-        NSRect stripeRect = NSMakeRect(initialStripeOffset, NSMaxY(rect) - 1.25, stripeLength, lineThickness);
+        NSRect stripeRect = NSMakeRect(initialStripeOffset, NSMinY(rect), stripeLength, [self lineHeight]);
         CGFloat remainingWidthInRect = NSMaxX(rect) - initialStripeOffset;
         while (remainingWidthInRect > 0) {
             // don't draw beyond the end of the rect
@@ -1244,18 +1244,18 @@ static size_t unionAndCleanLists(NSRect *rectList, id *valueList, size_t count) 
     const struct PropertyInfo_t *p;
     
     /* Draw backgrounds */
-    p = propertyInfos + 0;
-    if (p->count > 0) NSRectFillListWithColorsUsingOperation(p->rectList, p->propertyValueList, p->count, NSCompositeSourceOver);
+//    p = propertyInfos + 0;
+//    if (p->count > 0) NSRectFillListWithColorsUsingOperation(p->rectList, p->propertyValueList, p->count, NSCompositeSourceOver);
     
     /* Draw bookmark starts, extents, and ends */
-    p = propertyInfos + 1;
-    for (i=0; i < p->count; i++) [self drawBookmarkStarts:p->propertyValueList[i] inRect:p->rectList[i]];
+//    p = propertyInfos + 1;
+//    for (i=0; i < p->count; i++) [self drawBookmarkStarts:p->propertyValueList[i] inRect:p->rectList[i]];
     
     p = propertyInfos + 2;
     for (i=0; i < p->count; i++) [self drawBookmarkExtents:p->propertyValueList[i] inRect:p->rectList[i]];
     
-    p = propertyInfos + 3;
-    for (i=0; i < p->count; i++) [self drawBookmarkEnds:p->propertyValueList[i] inRect:p->rectList[i]];
+//    p = propertyInfos + 3;
+//    for (i=0; i < p->count; i++) [self drawBookmarkEnds:p->propertyValueList[i] inRect:p->rectList[i]];
     
     /* Clean up */
     for (propertyIndex = 0; propertyIndex < propertyInfoCount; propertyIndex++) {
@@ -1592,7 +1592,7 @@ static size_t unionAndCleanLists(NSRect *rectList, id *valueList, size_t count) 
     
     [self drawCaretIfNecessaryWithClip:clip];
     
-    [self drawBookmarksWithClip:clip];
+//    [self drawBookmarksWithClip:clip];
 }
 
 - (NSRect)furthestRectOnEdge:(NSRectEdge)edge forRange:(NSRange)byteRange {
