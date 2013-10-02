@@ -156,7 +156,6 @@
 		D0A47C110D288EDF00CB9BB9 /* HFControllerCoalescedUndo.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A47C0F0D288EDF00CB9BB9 /* HFControllerCoalescedUndo.h */; };
 		D0A47C120D288EDF00CB9BB9 /* HFControllerCoalescedUndo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A47C100D288EDF00CB9BB9 /* HFControllerCoalescedUndo.m */; };
 		D0A6C9D80DCC68610077175C /* HFController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A6C9D70DCC68610077175C /* HFController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0A8AF7D1467273900387627 /* AppUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A8AF7C1467273900387627 /* AppUtilities.m */; };
 		D0A90B050D160414008975B9 /* HFStatusBarRepresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A90B030D160414008975B9 /* HFStatusBarRepresenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A90B060D160414008975B9 /* HFStatusBarRepresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A90B040D160414008975B9 /* HFStatusBarRepresenter.m */; };
 		D0A9F3F10CFBEA9F0077D577 /* HFLineCountingRepresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A9F3EF0CFBEA9F0077D577 /* HFLineCountingRepresenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -439,8 +438,6 @@
 		D0A47C0F0D288EDF00CB9BB9 /* HFControllerCoalescedUndo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFControllerCoalescedUndo.h; path = sources/HFControllerCoalescedUndo.h; sourceTree = "<group>"; };
 		D0A47C100D288EDF00CB9BB9 /* HFControllerCoalescedUndo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HFControllerCoalescedUndo.m; path = sources/HFControllerCoalescedUndo.m; sourceTree = "<group>"; };
 		D0A6C9D70DCC68610077175C /* HFController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFController.h; path = sources/HFController.h; sourceTree = "<group>"; };
-		D0A8AF7B1467272B00387627 /* AppUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtilities.h; path = app/sources/AppUtilities.h; sourceTree = "<group>"; };
-		D0A8AF7C1467273900387627 /* AppUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtilities.m; path = app/sources/AppUtilities.m; sourceTree = "<group>"; };
 		D0A90B030D160414008975B9 /* HFStatusBarRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFStatusBarRepresenter.h; path = sources/HFStatusBarRepresenter.h; sourceTree = "<group>"; };
 		D0A90B040D160414008975B9 /* HFStatusBarRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HFStatusBarRepresenter.m; path = sources/HFStatusBarRepresenter.m; sourceTree = "<group>"; };
 		D0A9F3EF0CFBEA9F0077D577 /* HFLineCountingRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFLineCountingRepresenter.h; path = sources/HFLineCountingRepresenter.h; sourceTree = "<group>"; };
@@ -839,8 +836,6 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* HexFiend_2_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				D0A8AF7B1467272B00387627 /* AppUtilities.h */,
-				D0A8AF7C1467273900387627 /* AppUtilities.m */,
 				D02BD6D910545E7B00535EDE /* DocumentTypes */,
 				D0D8C45C12A3EF3F00960FC4 /* Dialogs */,
 				D0CD51F40DA2B928006E8D1B /* AppDelegate.h */,
@@ -1333,7 +1328,6 @@
 				D0D8C45812A3EF3900960FC4 /* ProcessList.m in Sources */,
 				D059E1291311C676001493B8 /* AppDebugging.m in Sources */,
 				D01EF15413B2A0D300CC9283 /* TextDividerRepresenter.m in Sources */,
-				D0A8AF7D1467273900387627 /* AppUtilities.m in Sources */,
 				D0D0536E1487FF2500704643 /* HFFindReplaceOperationView.m in Sources */,
 				795F46C114BAA45D00EB2F7D /* OpenDriveWindowController.m in Sources */,
 				DAE8EBFE1598FFDB0008ADB9 /* DocumentWindow.m in Sources */,
