@@ -506,7 +506,7 @@ static inline Class preferredByteArrayClass(void) {
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(lineCountingViewChangedWidth:) name:HFLineCountingRepresenterMinimumViewWidthChanged object:lineCountingRepresenter];
-    [center addObserver:self selector:@selector(dataInspectorChangedRowCount:) name:DataInspectorDidChangeRowCount object:dataInspectorRepresenter];
+    [center addObserver:self selector:@selector(dataInspectorChangedRowCount:) name:HFDataInspectorDidChangeRowCount object:dataInspectorRepresenter];
     [center addObserver:self selector:@selector(dataInspectorDeletedAllRows:) name:HFDataInspectorDidDeleteAllRows object:dataInspectorRepresenter];
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     
