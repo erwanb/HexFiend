@@ -197,6 +197,7 @@
 		F07C80DB17BE1E8E002D759E /* HFDataInspectorRepresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = F07C80D917BE1E8E002D759E /* HFDataInspectorRepresenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F07C80DC17BE1E8E002D759E /* HFDataInspectorRepresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = F07C80DA17BE1E8E002D759E /* HFDataInspectorRepresenter.m */; };
 		F07C80DE17BE1F0F002D759E /* HFDataInspectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F07C80DD17BE1F0F002D759E /* HFDataInspectorView.xib */; };
+		F0BDFD191818646100C43CF5 /* libSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BDFD181818646100C43CF5 /* libSystem.dylib */; };
 		FB1E99AA14A301CD002136A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05984CB1032C6D900059E72 /* Security.framework */; };
 /* End PBXBuildFile section */
 
@@ -490,6 +491,9 @@
 		F07C80D917BE1E8E002D759E /* HFDataInspectorRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFDataInspectorRepresenter.h; path = sources/HFDataInspectorRepresenter.h; sourceTree = "<group>"; };
 		F07C80DA17BE1E8E002D759E /* HFDataInspectorRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HFDataInspectorRepresenter.m; path = sources/HFDataInspectorRepresenter.m; sourceTree = "<group>"; };
 		F07C80DD17BE1F0F002D759E /* HFDataInspectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HFDataInspectorView.xib; path = resources/HFDataInspectorView.xib; sourceTree = "<group>"; };
+		F0BDFD1418185CCE00C43CF5 /* libc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libc.dylib; path = usr/lib/libc.dylib; sourceTree = SDKROOT; };
+		F0BDFD16181863EF00C43CF5 /* libsystem_kernel.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsystem_kernel.dylib; path = usr/lib/system/libsystem_kernel.dylib; sourceTree = SDKROOT; };
+		F0BDFD181818646100C43CF5 /* libSystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.dylib; path = usr/lib/libSystem.dylib; sourceTree = SDKROOT; };
 		FBEA8E7F14A2C10B00C27288 /* fileport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fileport.h; path = helper_subprocess/fileport.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -515,6 +519,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0BDFD191818646100C43CF5 /* libSystem.dylib in Frameworks */,
 				D03BD7D4146F676D00881576 /* AppKit.framework in Frameworks */,
 				D03BD7D3146F676600881576 /* Foundation.framework in Frameworks */,
 				D0D4BE85146F43A2001B0A71 /* ServiceManagement.framework in Frameworks */,
@@ -596,6 +601,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F0BDFD181818646100C43CF5 /* libSystem.dylib */,
+				F0BDFD16181863EF00C43CF5 /* libsystem_kernel.dylib */,
+				F0BDFD1418185CCE00C43CF5 /* libc.dylib */,
 				795F46C214BAADB600EB2F7D /* DiskArbitration.framework */,
 				D0D4BE84146F43A1001B0A71 /* ServiceManagement.framework */,
 				D05984CB1032C6D900059E72 /* Security.framework */,
@@ -1647,7 +1655,14 @@
 				INFOPLIST_FILE = "framework/HexFiend_Framework-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@loader_path/../Frameworks/HexFiend.framework/Versions/A/HexFiend";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fblocks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = HexFiend;
 				WARNING_CFLAGS = (
 					"-W",
@@ -1696,6 +1711,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = Test_BTree;
+				SDKROOT = macosx10.9;
 			};
 			name = Release;
 		};
@@ -1797,6 +1813,12 @@
 				INFOPLIST_FILE = "framework/HexFiend_Framework-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@loader_path/../Frameworks/HexFiend.framework/Versions/A/HexFiend";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fblocks";
 				PRODUCT_NAME = HexFiend;
 				WARNING_CFLAGS = (
@@ -1846,6 +1868,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = Test_BTree;
+				SDKROOT = macosx10.9;
 			};
 			name = "Debug+UnitTests";
 		};
@@ -1947,6 +1970,12 @@
 				INFOPLIST_FILE = "framework/HexFiend_Framework-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@loader_path/../Frameworks/HexFiend.framework/Versions/A/HexFiend";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fblocks";
 				PRODUCT_NAME = HexFiend;
 				WARNING_CFLAGS = (
@@ -1996,6 +2025,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = Test_BTree;
+				SDKROOT = macosx10.9;
 			};
 			name = "Release+CodeSign";
 		};
@@ -2061,6 +2091,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = Test_BTree;
+				SDKROOT = macosx10.9;
 			};
 			name = Debug;
 		};
@@ -2137,6 +2168,12 @@
 				INFOPLIST_FILE = "framework/HexFiend_Framework-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@loader_path/../Frameworks/HexFiend.framework/Versions/A/HexFiend";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fblocks";
 				PRODUCT_NAME = HexFiend;
 				WARNING_CFLAGS = (
@@ -2186,6 +2223,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = Test_BTree;
+				SDKROOT = macosx10.9;
 			};
 			name = "Debug+CodeSign";
 		};
@@ -2259,6 +2297,12 @@
 				INFOPLIST_FILE = "framework/HexFiend_Framework-Info.plist";
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				LD_DYLIB_INSTALL_NAME = "@loader_path/../Frameworks/HexFiend.framework/Versions/A/HexFiend";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fblocks";
 				PRODUCT_NAME = HexFiend;
 				WARNING_CFLAGS = (
